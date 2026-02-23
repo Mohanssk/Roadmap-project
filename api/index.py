@@ -40,23 +40,38 @@ def generate_free_certs(topic):
 
 def ask_openrouter(messages):
     if not OPENROUTER_API_KEY:
-        return "AI not configured. Add OPENROUTER_API_KEY."
+        return "AI not configured. Add OPENROUTER_API_KEY to Vercel Environment Variables."
+    
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://roadmap-project.vercel.app", # Recommended by OpenRouter
+        "X-Title": "Roadmap AI App" # Recommended by OpenRouter
     }
+    
     payload = {
+        # Note: If you have no credits, you can change this to a free model like: "meta-llama/llama-3-8b-instruct:free"
         "model": "openai/gpt-3.5-turbo",
         "messages": messages
     }
+    
     try:
         r = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload, timeout=30)
         result = r.json()
+        
+        # Check for successful response
         if "choices" in result and len(result["choices"]) > 0:
             return result["choices"][0]["message"]["content"]
-        return "Sorry, I couldn't generate a response."
+            
+        # If it failed, check for a specific error message from OpenRouter
+        if "error" in result:
+            error_msg = result["error"].get("message", "Unknown OpenRouter Error")
+            return f"OpenRouter API Error: {error_msg}"
+            
+        return f"Unexpected Response: {str(result)}"
+        
     except Exception as e:
-        return str(e)
+        return f"Server/Request Error: {str(e)}"
 
 # ======================================
 # API ROUTES (Prefixed with /api for Vercel)
