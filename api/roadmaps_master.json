@@ -1,0 +1,14 @@
+{
+  "frontend": {
+    "nodes": ["Internet","HTML","CSS","JavaScript","Git","React","Next.js","Testing","Web Security"],
+    "edges": [["Internet","HTML"],["HTML","CSS"],["CSS","JavaScript"],["JavaScript","Git"],["JavaScript","React"],["React","Next.js"],["Next.js","Testing"],["Testing","Web Security"]]
+  },
+  "backend": {
+    "nodes": ["Internet","Programming Language","Databases","APIs","Authentication","Caching","Message Queues","Scaling","System Design"],
+    "edges": [["Internet","Programming Language"],["Programming Language","Databases"],["Databases","APIs"],["APIs","Authentication"],["Authentication","Caching"],["Caching","Message Queues"],["Message Queues","Scaling"],["Scaling","System Design"]]
+  },
+  "ai-engineer": {
+    "nodes": ["Python","Mathematics","Machine Learning","Deep Learning","NLP","LLMs","AI Agents","Deployment"],
+    "edges": [["Python","Mathematics"],["Mathematics","Machine Learning"],["Machine Learning","Deep Learning"],["Deep Learning","NLP"],["NLP","LLMs"],["LLMs","AI Agents"],["AI Agents","Deployment"]]
+  }
+}
