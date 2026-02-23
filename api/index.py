@@ -11,7 +11,7 @@ CORS(app)
 # ======================================
 # OPENROUTER API
 # ======================================
-OPENROUTER_API_KEY = "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"
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
 # ======================================
 # LOAD ROADMAP DATA (Vercel Serverless Safe Path)
